@@ -5,7 +5,10 @@
   "dependencies": {
     "custom-react-scripts": "0.2.1",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
+    "semantic-ui-css": "^2.2.14",
+    "semantic-ui-react": "^0.77.2"
   },
   "scripts": {
     "start": "react-scripts start",
