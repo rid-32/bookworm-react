@@ -13,7 +13,6 @@ class LoginForm extends Component {
   static propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
-    submit: PropTypes.func.isRequired,
   };
 
 // В объекте состояния хранятся данные из полей формы
@@ -46,14 +45,11 @@ class LoginForm extends Component {
 
     const errors = this.validate(this.state.data);
     this.setState({ errors });
-
-    // Если объект ошибок пуст, то отправляем данные на сервер
     if (Object.keys(errors).length === 0) {
       this.props.submit(this.state.data);
     }
   };
 
-  // Метод проверки данных формы
   validate = (data) => {
     const errors = {};
     if (!Validator.isEmail(data.email)) {
@@ -71,7 +67,7 @@ class LoginForm extends Component {
     const { data, errors } = this.state;
     return (
       <Form onSubmit={this.onSubmit}>
-        <Form.Field error={!!errors.email}>
+        <Form.Field>
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -81,9 +77,9 @@ class LoginForm extends Component {
             value={data.email}
             onChange={this.onChange}
           />
-          { errors.email && <InlineError text={errors.email} />  }
+          { errors.email && <InlineError text={errors.email} /> }
         </Form.Field>
-        <Form.Field error={!!errors.password}>
+        <Form.Field>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -93,7 +89,7 @@ class LoginForm extends Component {
             value={data.password}
             onChange={this.onChange}
           />
-          { errors.password && <InlineError text={errors.password} />  }
+          { errors.password && <InlineError text={errors.password} /> }
         </Form.Field>
         <Button primary>Login</Button>
       </Form>
