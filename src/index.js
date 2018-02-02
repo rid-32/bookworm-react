@@ -16,6 +16,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 // Reducers
 import rootReducer from './rootReducer';
 
+//Actions
+import { userLoggedIn } from './actions/auth';
 
 // Main styles
 import './less/index.css';
@@ -35,6 +37,11 @@ const store = createStore(
     applyMiddleware(thunk)
   )
 );
+
+if (localStorage.bookwormJWT) {
+  const user = { token: localStorage.bookwormJWT };
+  store.dispatch(userLoggedIn(user));
+}
 
 ReactDOM.render(
   <Router>
