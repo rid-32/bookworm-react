@@ -23,10 +23,10 @@ class LoginPage extends Component {
   };
 
   // При отправке данных на сервер успешные ответы обрабатываются в LoginPage компоненте,
-  // а ошибки перехватываются уже в LoginForm
+  // а ошибки перехватываются уже в LoginForm далее
   submit = (data) =>
     this.props.login(data).then(
-      () => this.props.history.push('/')
+      () => this.props.history.push('/dashboard')
     );
 
   // Сам по себе этот компонент просто отображает компонент формы

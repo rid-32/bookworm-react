@@ -16,6 +16,8 @@ class HomePage extends Component {
     logout: PropTypes.func.isRequired,
   };
 
+  // В зависимости от того, вошел ли пользователь, отображается или кнопка Login,
+  // или кнопка Logout
   render() {
     const { isAuthenticated, logout } = this.props;
     return (
@@ -27,6 +29,7 @@ class HomePage extends Component {
   }
 }
 
+// Флаг isAuthenticated говорит о том, осуществил ли пользователь вход на сайт или нет
 function mapStateToProps(state) {
   return {
     isAuthenticated: !!state.user.token
