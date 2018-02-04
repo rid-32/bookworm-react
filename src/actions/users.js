@@ -5,4 +5,7 @@ import api from '../api';
 
 // Thunk-action
 export const signup = data => dispatch =>
-  api.user.signup(data).then(user => dispatch(userLoggedIn(user)));
+  api.user.signup(data).then(user => {
+    localStorage.bookwormJWT = user.token;
+    dispatch(userLoggedIn(user))
+  });

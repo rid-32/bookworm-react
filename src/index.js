@@ -28,6 +28,8 @@ import App from './App';
 
 // Other
 import registerServiceWorker from './registerServiceWorker';
+// Модуль декодирования JWT-токена, хранящегося в локальном хранилище браузера
+import decode from 'jwt-decode';
 
 // Создаём хранилище
 const store = createStore(
@@ -43,7 +45,12 @@ const store = createStore(
 // Если есть, то мы устанавливаем в redux-состоянии объект user c соответствующим
 // токеном
 if (localStorage.bookwormJWT) {
-  const user = { token: localStorage.bookwormJWT };
+  const payload = decode(localStorage.bookwormJWT);
+  const user = {
+    token: localStorage.bookwormJWT,
+    email: payload.email,
+    confirmed: payload.confirmed,
+  };
   store.dispatch(userLoggedIn(user));
 }
 
