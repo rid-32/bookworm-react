@@ -10,6 +10,7 @@ import { login } from '../../actions/auth';
 
 // Components
 import LoginForm from '../forms/LoginForm';
+import { Link } from 'react-router-dom';
 
 class LoginPage extends Component {
   // Свойства, которые передаются от родительского компонента
@@ -36,6 +37,8 @@ class LoginPage extends Component {
         <h1>Login Page</h1>
 
         <LoginForm submit={this.submit} />
+
+        <Link to="/forgot_password">Forgot Password?</Link>
       </div>
     );
   }
