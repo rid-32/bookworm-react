@@ -4,7 +4,9 @@ import { combineReducers } from 'redux';
 
 // Редюсеры, из которых собирается корневой reducer
 import user from './reducers/user';
+import books from './reducers/books';
 
 export default combineReducers({
-  user
+  user,
+  books,
 });

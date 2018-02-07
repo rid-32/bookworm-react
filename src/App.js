@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 //components
 import HomePage from './components/pages/HomePage';
@@ -10,6 +11,8 @@ import SignupPage from './components/pages/SignupPage';
 import ConfirmationPage from './components/pages/ConfirmationPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import ResetPasswordPage from './components/pages/ResetPasswordPage';
+import TopNavigation from './components/navigation/TopNavigation';
+import NewBookPage from './components/pages/NewBookPage';
 // Пользовательские маршруты, которые отображаются не только в зависимости от history,
 // но и от того, вошел ли пользователь или нет
 import UserRoute from './components/routes/UserRoute';
@@ -24,6 +27,7 @@ class App extends Component {
   static propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
+    isAuthenticated: PropTypes.bool.isRequired,
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
     }).isRequired,
@@ -32,9 +36,10 @@ class App extends Component {
   // Внутрь пользовательских маршрутов мы передаём свойство location, чтобы
   // в дальнейшем это свойство было передано компоненту <Route />
   render() {
-    const { location } = this.props;
+    const { location, isAuthenticated } = this.props;
     return (
       <div className='ui container'>
+        { isAuthenticated && <TopNavigation location={location}/> }
         <Route location={location} path='/' exact component={HomePage} />
         <Route location={location} path='/confirmation/:token' exact component={ConfirmationPage} />
         <GuestRoute location={location} path='/login' component={LoginPage} />
@@ -42,9 +47,16 @@ class App extends Component {
         <GuestRoute location={location} path='/forgot_password' component={ForgotPasswordPage} />
         <GuestRoute location={location} path='/reset_password/:token' component={ResetPasswordPage} />
         <UserRoute location={location} path='/dashboard' component={DashboardPage} />
+        <UserRoute location={location} path='/books/new' component={NewBookPage} />
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: !!state.user.email,
+  };
+}
+
+export default connect(mapStateToProps)(App);

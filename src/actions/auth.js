@@ -4,6 +4,9 @@ import { USER_LOGGED_IN, USER_LOGGED_OUT } from '../types';
 // промежуточным ПО redux-thunk
 import api from '../api';
 
+// Устоновка заголовка с токен авторизации
+import setAuthorizationHeader from '../utils/setAuthorizationHeader';
+
 // Action-creator для редюсера user.js для установки свойства user состояния
 export const userLoggedIn = (user) => ({
   type: USER_LOGGED_IN,
@@ -20,12 +23,14 @@ export const login = (credentials) => dispatch =>
     api.user.login(credentials)
       .then(user => {
         localStorage.bookwormJWT = user.token;
+        setAuthorizationHeader(user.token);
         dispatch(userLoggedIn(user));
       });
 
 // Удаление токена из локального хранилища браузера и удаление пользователя из состояния
 export const logout = () => dispatch => {
         localStorage.removeItem('bookwormJWT');
+        setAuthorizationHeader();
         dispatch(userLoggedOut());
       };
 

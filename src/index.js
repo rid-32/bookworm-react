@@ -30,6 +30,8 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 // Модуль декодирования JWT-токена, хранящегося в локальном хранилище браузера
 import decode from 'jwt-decode';
+// Модуль установки заголовка с токеном
+import setAuthorizationHeader from './utils/setAuthorizationHeader';
 
 // Создаём хранилище
 const store = createStore(
@@ -51,6 +53,7 @@ if (localStorage.bookwormJWT) {
     email: payload.email,
     confirmed: payload.confirmed,
   };
+  setAuthorizationHeader(localStorage.bookwormJWT);
   store.dispatch(userLoggedIn(user));
 }
 
