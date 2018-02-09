@@ -143,10 +143,11 @@ class BookForm extends Component {
                 <Form.Field error={!!errors.pages}>
                   <label htmlFor="pages">Pages</label>
                   <input
-                    type="number"
+                    disabled={data.pages === undefined}
+                    type="text"
                     id="pages"
                     name="pages"
-                    value={data.pages}
+                    value={data.pages !== undefined ? data.pages : 'Loading...'}
                     onChange={this.onChangeNumber}
                   />
                   { errors.pages && <InlineError text={errors.pages} /> }

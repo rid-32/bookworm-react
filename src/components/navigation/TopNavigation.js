@@ -11,18 +11,22 @@ import { Link } from 'react-router-dom';
 // Actions
 import { logout } from '../../actions/auth';
 
+// Selectors
+import { allBooksSelector } from '../../reducers/books';
+
 class TopNavigation extends Component {
   static propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     logout: PropTypes.func.isRequired,
+    hasBooks: PropTypes.bool.isRequired,
     user: PropTypes.shape({
       email: PropTypes.string.isRequired,
     }).isRequired,
   };
 
   render() {
-    const { user, logout, location } = this.props;
+    const { user, logout, location, hasBooks } = this.props;
 
     return (
       <Menu secondary pointing>
@@ -32,6 +36,7 @@ class TopNavigation extends Component {
             <Menu.Item as={Link} to="/dashboard">Dashboard</Menu.Item>
           )
         }
+        { hasBooks && <Menu.Item as={Link} to="/books/new">Add new book</Menu.Item> }
 
         <Menu.Menu position="right">
           <Dropdown trigger={<Image avatar src={gravatarUrl(user.email)} /> }>
@@ -48,6 +53,7 @@ class TopNavigation extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
+    hasBooks: allBooksSelector(state).length > 0,
   };
 }
 

@@ -5,9 +5,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-// Actions
-import * as actions from '../../actions/auth';
-
 class HomePage extends Component {
   static propTypes = {
     children: PropTypes.node,
@@ -19,17 +16,15 @@ class HomePage extends Component {
   // В зависимости от того, вошел ли пользователь, отображается или кнопка Login,
   // или кнопка Logout
   render() {
-    const { isAuthenticated, logout } = this.props;
+    const { isAuthenticated } = this.props;
     return (
       <div>
         <h1>Home Page</h1>
-        { isAuthenticated ? (
-          <button onClick={() => logout()}>Logout</button>
-        ) : (
+        { !isAuthenticated &&
           <div>
             <Link to='/login'>Login</Link> or <Link to='/signup'>Sign Up</Link>
           </div>
-        ) }
+        }
       </div>
     );
   }
@@ -42,4 +37,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { logout: actions.logout })(HomePage);
+export default connect(mapStateToProps)(HomePage);

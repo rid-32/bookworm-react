@@ -4,6 +4,9 @@ import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// Actions
+import { fetchBooks } from '../../actions/books';
+
 // Components
 import AddBookCta from '../ctas/AddBookCta';
 
@@ -19,10 +22,15 @@ class DashboardPage extends Component {
     children: PropTypes.node,
     className: PropTypes.string,
     isConfirmed: PropTypes.bool.isRequired,
+    fetchBooks: PropTypes.func.isRequired,
     books: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired,
     }).isRequired).isRequired,
   };
+
+  componentDidMount = () => this.onInit(this.props);
+
+  onInit = (props) => props.fetchBooks();
 
   render() {
     const { isConfirmed, books } = this.props;
@@ -30,7 +38,7 @@ class DashboardPage extends Component {
       <div>
         { !isConfirmed && <ConfirmEmailMessage />  }
 
-        { books.length === 0 && <AddBookCta /> }
+        { books.length === 0 ? <AddBookCta /> : <p>You have books</p> }
       </div>
     );
   }
@@ -44,4 +52,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(DashboardPage);
+export default connect(mapStateToProps, { fetchBooks })(DashboardPage);
