@@ -1,6 +1,6 @@
 // Модуль создания селекторов
 import { createSelector } from 'reselect';
-import { BOOKS_FETCHED, BOOK_CREATED } from '../types';
+import { BOOKS_FETCHED, BOOK_CREATED, BOOKS_CLEARED } from '../types';
 
 // Reducer
 export default function books(state = {}, action = {}) {
@@ -8,6 +8,8 @@ export default function books(state = {}, action = {}) {
     case BOOKS_FETCHED:
     case BOOK_CREATED:
       return { ...state, ...action.data.entities.books  };
+    case BOOKS_CLEARED:
+      return {};
     default: return state;
   }
 }

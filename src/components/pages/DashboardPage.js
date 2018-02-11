@@ -9,6 +9,8 @@ import { fetchBooks } from '../../actions/books';
 
 // Components
 import AddBookCta from '../ctas/AddBookCta';
+import BookShelf from '../ctas/BookShelf';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
 // Messages
 import ConfirmEmailMessage from '../messages/ConfirmEmailMessage';
@@ -28,17 +30,31 @@ class DashboardPage extends Component {
     }).isRequired).isRequired,
   };
 
-  componentDidMount = () => this.onInit(this.props);
+  state = {
+    loading: true,
+  }
+
+  componentDidMount = () => this.onInit(this.props)
+    .then(() => this.setState({ loading: false }));
 
   onInit = (props) => props.fetchBooks();
 
   render() {
     const { isConfirmed, books } = this.props;
+    const { loading } = this.state;
+
     return (
       <div>
         { !isConfirmed && <ConfirmEmailMessage />  }
-
-        { books.length === 0 ? <AddBookCta /> : <p>You have books</p> }
+        { loading ? (
+          <Dimmer active inverted>
+            <Loader />
+          </Dimmer>
+        ) : (
+          <div>
+            { books.length === 0 ? <AddBookCta /> : <BookShelf books={books} /> }
+          </div>
+        ) }
       </div>
     );
   }

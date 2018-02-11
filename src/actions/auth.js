@@ -1,5 +1,5 @@
 // В types.js хранятся все action.type-ы
-import { USER_LOGGED_IN, USER_LOGGED_OUT } from '../types';
+import { USER_LOGGED_IN, USER_LOGGED_OUT, BOOKS_CLEARED } from '../types';
 // В api.js хранятся асинхронные action-creator-ы для обработки
 // промежуточным ПО redux-thunk
 import api from '../api';
@@ -18,6 +18,11 @@ export const userLoggedOut = () => ({
   type: USER_LOGGED_OUT
 });
 
+// Action-creator для удаления из состояния книг удаленного пользователя
+export const booksCleared = () => ({
+  type: BOOKS_CLEARED
+});
+
 // Login action, которое диспатчит userLoggedIn() action-creator
 export const login = (credentials) => dispatch =>
     api.user.login(credentials)
@@ -32,6 +37,7 @@ export const logout = () => dispatch => {
         localStorage.removeItem('bookwormJWT');
         setAuthorizationHeader();
         dispatch(userLoggedOut());
+        dispatch(booksCleared());
       };
 
 // Подтверждение email. Если токен верен, то осуществляется автоматический вход на сайт

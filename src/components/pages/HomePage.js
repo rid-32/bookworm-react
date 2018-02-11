@@ -4,13 +4,13 @@ import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Segment } from 'semantic-ui-react';
 
 class HomePage extends Component {
   static propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     isAuthenticated: PropTypes.bool.isRequired,
-    logout: PropTypes.func.isRequired,
   };
 
   // В зависимости от того, вошел ли пользователь, отображается или кнопка Login,
@@ -23,6 +23,10 @@ class HomePage extends Component {
         { !isAuthenticated &&
           <div>
             <Link to='/login'>Login</Link> or <Link to='/signup'>Sign Up</Link>
+            <Segment>
+              <span>User: john@mail.com</span><br />
+              <span>Password: password</span>
+            </Segment>
           </div>
         }
       </div>

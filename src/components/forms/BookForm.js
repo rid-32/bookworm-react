@@ -165,7 +165,7 @@ class BookForm extends Component {
 
             </Grid.Row>
             <Grid.Row>
-              <Button primary>Save</Button>
+              <Button primary style={{ marginLeft: '20px' }}>Save</Button>
             </Grid.Row>
           </Grid>
         </Form>
