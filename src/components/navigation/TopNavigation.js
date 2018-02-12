@@ -2,10 +2,10 @@ import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // Get URL to a Gravatar image from an email
-import gravatarUrl from 'gravatar-url';
+// import gravatarUrl from 'gravatar-url';
 
 // Components
-import { Menu, Dropdown, Image } from 'semantic-ui-react';
+import { Menu, Dropdown, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 // Actions
@@ -26,7 +26,7 @@ class TopNavigation extends Component {
   };
 
   render() {
-    const { user, logout, location, hasBooks } = this.props;
+    const { logout, location, hasBooks } = this.props;
 
     return (
       <Menu secondary pointing>
@@ -39,7 +39,7 @@ class TopNavigation extends Component {
         { hasBooks && <Menu.Item as={Link} to="/books/new">Add new book</Menu.Item> }
 
         <Menu.Menu position="right">
-          <Dropdown trigger={<Image avatar src={gravatarUrl(user.email)} /> }>
+          <Dropdown trigger={<Icon name="user circle outline" size="big" />}>
             <Dropdown.Menu>
               <Dropdown.Item onClick={() => logout()}>Logout</Dropdown.Item>
             </Dropdown.Menu>
