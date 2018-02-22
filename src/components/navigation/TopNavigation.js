@@ -14,7 +14,7 @@ import { logout } from '../../actions/auth';
 // Selectors
 import { allBooksSelector } from '../../reducers/books';
 
-class TopNavigation extends Component {
+export class TopNavigation extends Component {
   static propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
@@ -22,6 +22,9 @@ class TopNavigation extends Component {
     hasBooks: PropTypes.bool.isRequired,
     user: PropTypes.shape({
       email: PropTypes.string.isRequired,
+    }).isRequired,
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
     }).isRequired,
   };
 

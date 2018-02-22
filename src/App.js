@@ -23,7 +23,7 @@ import './less/App.less';
 
 // PropTypes.shape мы используем вместо PropTypes.object, который соответстует
 // любым данным, а не только конкретному объекту к определёнными свойствами
-class App extends Component {
+export class App extends Component {
   static propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
